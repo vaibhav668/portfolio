@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaibhav Pokhriyal — AI/ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#050816;--violet:#7C3AED;--blue:#3B82F6;--cyan:#06B6D4;
+--fg:#F8FAFC;--fg2:#94A3B8;--fg3:#475569;
+--glass:rgba(255,255,255,0.04);--glass-border:rgba(255,255,255,0.08);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6}
+#canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.site{position:relative;z-index:1}
+section{padding:100px 0}
+.container{max-width:1100px;margin:0 auto;padding:0 32px}
+
+/* ── GITHUB CORNER ── */
+.github-corner{position:fixed;top:0;right:0;z-index:200}
+.github-corner svg{fill:var(--violet);color:var(--bg);width:80px;height:80px}
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}
+@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;backdrop-filter:blur(20px);background:rgba(5,8,22,0.7);border-bottom:1px solid var(--glass-border)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--violet),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--fg2);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;font-size:.85rem;font-weight:500;text-decoration:none;transition:all .25s;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.btn-resume{background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;box-shadow:0 0 30px rgba(124,58,237,0.3);font-size:.78rem;padding:9px 18px}
+.btn-resume:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(124,58,237,0.5)}
+.btn-primary{background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;box-shadow:0 0 40px rgba(124,58,237,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,58,237,0.5)}
+.btn-ghost{background:var(--glass);border:1px solid var(--glass-border);color:var(--fg)}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);transform:translateY(-2px)}
+.btn-sm{padding:7px 14px;font-size:.75rem;border-radius:8px}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px}
+.hero-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);border-radius:100px;padding:6px 16px;font-size:.78rem;font-weight:500;color:#A78BFA;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px}
+.tag-dot{width:6px;height:6px;background:#A78BFA;border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.8rem,5vw,4.2rem);line-height:1.05;letter-spacing:-.04em;margin-bottom:20px}
+.grad-text{background:linear-gradient(135deg,#fff 0%,var(--cyan) 50%,var(--violet) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.typing-wrap{font-family:'Space Mono',monospace;font-size:1.1rem;color:var(--cyan);min-height:1.8em;margin-bottom:20px}
+.cursor{animation:blink .8s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-desc{color:var(--fg2);font-size:1rem;line-height:1.75;max-width:480px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+
+/* ── PROFILE PHOTO ── */
+.profile-section{display:flex;flex-direction:column;align-items:center;gap:24px}
+.profile-photo-wrap{position:relative;width:200px;height:200px}
+.profile-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;border:3px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,var(--violet),var(--cyan)) border-box;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:4rem;overflow:hidden}
+.profile-photo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.profile-photo-placeholder{width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(6,182,212,0.3));border:3px solid transparent;background-clip:padding-box;outline:3px solid;outline-color:var(--violet);display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative}
+.profile-ring{position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(124,58,237,0.3);animation:spin 8s linear infinite}
+.profile-ring2{position:absolute;inset:-16px;border-radius:50%;border:1px dashed rgba(6,182,212,0.2);animation:spin 12s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo-upload-hint{font-size:.7rem;color:var(--fg3);text-align:center;font-family:'Space Mono',monospace;letter-spacing:.04em}
+
+/* ── NEURAL ── */
+.neural-wrap{position:relative;width:100%;aspect-ratio:1;max-width:380px;margin-left:auto}
+#neural-canvas{width:100%;height:100%;border-radius:24px}
+.neural-glow{position:absolute;inset:-20px;background:radial-gradient(circle at 50% 50%,rgba(124,58,237,0.15),transparent 70%);z-index:-1;border-radius:50%;animation:glow-pulse 4s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.hero-stats{display:grid;grid-template-columns:1fr;gap:16px;margin-top:24px}
+.stat-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:20px 24px;backdrop-filter:blur(10px);transition:all .3s;position:relative;overflow:hidden}
+.stat-card:hover{border-color:rgba(124,58,237,0.4);transform:translateY(-3px)}
+.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:-.04em;background:linear-gradient(135deg,var(--violet),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:.78rem;color:var(--fg3);margin-top:4px;font-weight:500;letter-spacing:.03em;text-transform:uppercase}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--fg3);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--violet),transparent)}
+
+/* ── SECTION HEADER ── */
+.section-label{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,2.8rem);letter-spacing:-.04em;line-height:1.1;margin-bottom:16px}
+.section-sub{color:var(--fg2);font-size:1rem;max-width:540px;line-height:1.75}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent)}
+
+/* ── RESEARCH ── */
+#research{background:linear-gradient(180deg,transparent,rgba(124,58,237,0.04),transparent)}
+.research-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:40px;margin-top:48px;position:relative;overflow:hidden;transition:all .3s}
+.research-card:hover{border-color:rgba(124,58,237,0.3);transform:translateY(-4px)}
+.research-header{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:start;margin-bottom:24px}
+.inst-badge{width:72px;height:72px;background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(59,130,246,0.2));border:1px solid rgba(124,58,237,0.3);border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.8rem;color:#A78BFA;text-align:center;line-height:1.2;flex-shrink:0}
+.research-photo{width:72px;height:72px;border-radius:12px;object-fit:cover;border:2px solid rgba(124,58,237,0.3);flex-shrink:0;background:rgba(124,58,237,0.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;overflow:hidden}
+.research-photo img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.research-role{font-family:'Syne',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-.03em;margin-bottom:4px}
+.research-org{color:var(--cyan);font-size:.9rem;font-weight:500;margin-bottom:8px}
+.research-period{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--fg3);letter-spacing:.05em}
+.research-desc{color:var(--fg2);font-size:.95rem;line-height:1.8;margin-bottom:24px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tag{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);color:var(--cyan);border-radius:100px;padding:4px 14px;font-size:.75rem;font-weight:500;letter-spacing:.04em}
+.tag.violet{background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.2);color:#A78BFA}
+.cert-link{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);color:#A78BFA;border-radius:8px;padding:8px 16px;font-size:.8rem;font-weight:500;text-decoration:none;transition:all .25s}
+.cert-link:hover{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.5);transform:translateY(-2px)}
+.inst-logo{
+    width:70px;
+    height:70px;
+    min-width:70px;
+    min-height:70px;
+    flex-shrink:0;
+
+    border-radius:12px;
+    background:rgba(124,58,237,.08);
+    border:1px solid rgba(124,58,237,.25);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.inst-logo img{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+}
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:48px}
+.project-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;overflow:hidden;position:relative;transition:all .35s}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--violet),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:2}
+.project-card:hover::before{transform:scaleX(1)}
+.project-card:hover{border-color:rgba(124,58,237,0.25);transform:translateY(-6px);background:rgba(255,255,255,0.06)}
+.project-img{width:100%;height:160px;object-fit:cover;background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(6,182,212,0.1));display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
+.project-img img{width:100%;height:100%;object-fit:cover}
+.project-img-placeholder{width:100%;height:160px;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(59,130,246,0.1),rgba(6,182,212,0.1));display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
+.project-img-placeholder::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(5,8,22,0.8))}
+.project-body{padding:24px}
+.project-icon-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.project-emoji{font-size:1.4rem}
+.project-links{display:flex;gap:8px}
+.proj-link{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:.72rem;font-weight:500;text-decoration:none;font-family:'Space Mono',monospace;transition:all .2s;border:1px solid}
+.proj-link-gh{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.12);color:var(--fg2)}
+.proj-link-gh:hover{border-color:rgba(255,255,255,0.3);color:var(--fg);background:rgba(255,255,255,0.1)}
+.proj-link-demo{background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.25);color:var(--cyan)}
+.proj-link-demo:hover{background:rgba(6,182,212,0.18);border-color:rgba(6,182,212,0.5)}
+.project-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:-.02em;margin-bottom:10px}
+.project-desc{color:var(--fg2);font-size:.85rem;line-height:1.75;margin-bottom:16px}
+.project-stack{display:flex;gap:6px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--glass-border)}
+.stack-badge{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#93C5FD;border-radius:6px;padding:2px 10px;font-size:.7rem;font-weight:500;font-family:'Space Mono',monospace}
+
+/* ── ACHIEVEMENTS ── */
+#achievements{background:linear-gradient(180deg,transparent,rgba(6,182,212,0.03),transparent)}
+.achievements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:48px}
+.achievement-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;overflow:hidden;transition:all .3s}
+.achievement-card:hover{border-color:rgba(6,182,212,0.3);transform:translateY(-4px)}
+.achievement-imgs{display:flex;gap:4px;height:140px;overflow:hidden}
+.achievement-img{flex:1;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.1));display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden}
+.achievement-img img{width:100%;height:100%;object-fit:cover}
+.achievement-body{padding:24px;text-align:center}
+.medal{font-size:2rem;margin-bottom:12px;display:block}
+.achievement-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:-.02em;margin-bottom:8px}
+.achievement-sub{color:var(--fg2);font-size:.85rem;line-height:1.6;margin-bottom:16px}
+.achievement-org{color:var(--cyan);font-size:.75rem;font-weight:500;margin-bottom:16px;font-family:'Space Mono',monospace;letter-spacing:.04em}
+
+/* ── WORKSHOP PHOTOS ── */
+.workshop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:16px}
+.workshop-photo{aspect-ratio:4/3;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.1));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;overflow:hidden;border:1px solid var(--glass-border)}
+.workshop-photo img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.workshop-label{font-size:.72rem;color:var(--fg3);text-align:center;margin-top:8px;font-family:'Space Mono',monospace}
+
+/* ── SKILLS ── */
+/* ── SKILLS ── */
+
+.skills-wrap{
+    max-width:1400px;
+    margin:60px auto;
+
+    display:flex;
+    flex-wrap:wrap;
+
+    justify-content:center;
+    align-items:flex-start;
+
+    gap:50px;
+}
+
+.skill-category{
+    width:320px;
+    text-align:center;
+}
+
+.skill-group-title{
+    font-family:'Syne',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    color:var(--fg2);
+
+    margin-bottom:18px;
+
+    letter-spacing:.05em;
+    text-transform:uppercase;
+}
+
+.skill-list{
+    display:flex;
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px;
+}
+
+.skill-pill{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius:100px;
+    padding:8px 18px;
+    font-size:.8rem;
+    font-weight:500;
+    color:var(--fg2);
+    transition:.25s;
+}
+
+.skill-pill:hover{
+    border-color:rgba(124,58,237,.4);
+    color:var(--fg);
+    background:rgba(124,58,237,.08);
+}
+/* ── CONTACT ── */
+.contact-cards{display:flex;flex-wrap:wrap;gap:16px;margin-top:48px;justify-content:center}
+.contact-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:24px 32px;display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--fg);transition:all .3s;min-width:220px}
+.contact-card:hover{border-color:rgba(124,58,237,0.4);transform:translateY(-4px);background:rgba(124,58,237,0.05)}
+.contact-card-icon{width:44px;height:44px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.contact-card-label{font-size:.72rem;color:var(--fg3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;font-family:'Space Mono',monospace}
+.contact-card-val{font-size:.9rem;font-weight:500}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--glass-border);padding:48px 0 32px;text-align:center}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;background:linear-gradient(135deg,var(--violet),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:32px;margin:20px 0;list-style:none}
+.footer-links a{color:var(--fg3);text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-links a:hover{color:var(--fg)}
+.footer-copy{color:var(--fg3);font-size:.8rem}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+
+/* ── UPLOAD OVERLAY HINT ── */
+.img-slot{position:relative;cursor:pointer}
+.img-slot-hint{position:absolute;inset:0;background:rgba(124,58,237,0.15);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;border-radius:inherit;gap:6px}
+.img-slot:hover .img-slot-hint{opacity:1}
+.img-slot-hint span{font-size:.72rem;color:#fff;font-family:'Space Mono',monospace;background:rgba(0,0,0,0.6);padding:3px 10px;border-radius:100px}
+
+@media(max-width:768px){
+  .hero-grid,.skills-wrap{grid-template-columns:1fr}
+  .research-header{grid-template-columns:auto 1fr}
+  nav .nav-links{display:none}
+  .contact-cards{flex-direction:column;align-items:stretch}
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<!-- GITHUB CORNER -->
+<a href="https://github.com/vaibhav668" target="_blank" class="github-corner" aria-label="View source on GitHub">
+<svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
+  <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+  <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" class="octo-arm" style="transform-origin:130px 106px"></path>
+  <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+</svg>
+</a>
+
+<div class="site">
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">VP</div>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://drive.google.com/file/d/1hh5mV3ckq6Igy_VanLb_9jrdtEf6vn1H/view?usp=sharing" target="_blank" class="btn btn-resume"> Download Resume</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag reveal"><span class="tag-dot"></span>Available for Opportunities</div>
+        <h1 class="reveal delay-1"><span class="grad-text">Vaibhav</span><br>Pokhriyal</h1>
+        <div class="typing-wrap reveal delay-2"><span id="typed"></span><span class="cursor">|</span></div>
+        <p class="hero-desc reveal delay-3">AI/ML Engineer | GenAI Developer | Computer Vision Engineer with research experience at IIT Delhi's Neuro Computing Lab. Experienced in building end-to-end intelligent systems using Deep Learning, Graph Neural Networks, Large Language Models, and modern AI deployment technologies<strong style="color:#fff"></strong>.</p>
+        <div class="hero-ctas reveal delay-4">
+          <a href="#projects" class="btn btn-primary">View Projects ↗</a>
+          <a href="#contact" class="btn btn-ghost">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="reveal delay-2">
+        <!-- PROFILE PHOTO + NEURAL -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+         <div class="profile-photo-wrap">
+    <div class="profile-ring"></div>
+    <div class="profile-ring2"></div>
+
+    <div class="profile-photo">
+        <img src="https://github.com/vaibhav668.png" alt="Vaibhav Pokhriyal">
+    </div>
+
+</div>
+  
+        </div>
+
+        <div class="neural-wrap" style="max-width:100%;margin-top:20px">
+          <div class="neural-glow"></div>
+          <canvas id="neural-canvas" width="380" height="220"></canvas>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stats">
+
+  <div class="stat-card">
+    <div class="stat-num">GBPIET</div>
+    <div class="stat-label">
+        B.Tech CSE (AI & ML) <br> 2024–2028<br>
+      pauri garhwal    </div>
+</div>
+
+  <div class="stat-card">
+    <div class="stat-num">IIT DELHI</div>
+    <div class="stat-label">
+        Research Intern <br> 12 Feb 2026 - 12 May 2026<br>
+        Neuro Computing Lab
+    </div>
+    
+</div>
+
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="reveal">
+       
+      <h2 class="section-title"> <span class="grad-text">EXPERIENCE</span></h2>
+    </div>
+    <div class="research-card reveal">
+      <div class="research-header">
+        <div class="inst-logo">
+    <img src="iit_logo.jpg" alt="IIT Delhi">
+</div>
+        <div>
+          <div class="research-role">Research Intern</div>
+          <div class="research-org">Indian Institute of Technology, Delhi</div>
+          <div class="research-period"> HYBRID MODE <br>12 Feb 2026 - 12 May 2026</div>
+        </div>
+        
+      </div>
+      <p class="research-desc">Conducted research at IIT Delhi's Neuro Computing Lab under the guidance of Prof. Tapan K. Gandhi (FNAE, FNASc), focusing on AI-driven healthcare applications. Designed and implemented a Hybrid Graph Attention Network (GAT) + BiLSTM framework for EEG-based epileptic seizure detection using the CHB-MIT dataset. Developed an end-to-end research pipeline encompassing EEG signal preprocessing, graph construction, feature engineering, temporal sequence modeling, and performance evaluation. Leveraged Deep Learning, Graph Neural Networks, and Biomedical Signal Processing techniques to build a robust seizure detection system and explore advanced AI approaches for healthcare applications.</p>
+
+        <span class="tag">PyTorch</span>
+        <span class="tag violet">Deep Learning</span>
+        <span class="tag violet">Biomedical Signal Processing</span>
+        <span class="tag ">EEG Signal Processing</span>
+        <span class="tag violet">Graph Neural Networks</span>
+        <span class="tag">PyTorch Geometric</span>
+        <br>
+        <br>
+        <span class="tag ">CNN</span>
+        <span class="tag ">BiLSTM</span>
+        <span class="tag ">Transfer Learning</span>
+        <span class="tag ">Model Evaluation</span>
+        <span class="tag violet">Seizure Detection</span>
+        <span class="tag">Python</span>
+        <span class="tag violet">AI in Healthcare</span>
+        <span class="tag">CHB-MIT Dataset</span>
+        
+
+
+<br> <br>
+        <a href="https://drive.google.com/file/d/1yTkQkINH278gIJHyy7UGoCnLWOIMXt0E/view" target="_blank" class="cert-link">
+          Internship Certificate ↗
+      </a>
+      <a href="https://github.com/vaibhav668/Hybrid-Spatiotemporal-Graph-Neural-Network-Framework-for-EEG-Based-Epileptic-Seizure-Detection" target="_blank" class="cert-link">
+          Project Repository ↗
+      </a>
+      </div>
+      <!-- Certificate link — replace href with your Google Drive link -->
+      
+    </div>
+
+    
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="section-title">PRO<span class="grad-text">JECTS</span></h2>
+      <p class="section-sub">A selection of projects spanning generative AI, computer vision, and intelligent automation systems.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card reveal">
+        <img src="intel.png" alt="IntelliGuard AI" class="project-img">
+        <div class="project-body">
+          <div class="project-icon-row">
+           
+            <div class="project-links">
+              <a href="https://github.com/vaibhav668/INTELLIGUARD-AI.git" target="_blank" class="proj-link proj-link-gh">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/posts/vaibhav-pokhriyal-a8b08023a_computervision-ai-deeplearning-activity-7455938447854460929-rAtc?utm_source=share&utm_medium=member_desktop&rcm=ACoAADt0bgsBZkoQJ30SGdVpY1FP7-4WX6UluH0" target="_blank" class="proj-link proj-link-demo">▶ Demo</a>
+            </div>
+          </div>
+          <div class="project-title">IntelliGuard AI</div>
+          <p class="project-desc"><p class="project-desc">
+Designed and developed an end-to-end intelligent surveillance system leveraging Computer Vision and Deep Learning for real-time accident detection, violence recognition, fire & smoke monitoring, and vehicle tracking. Integrated YOLOv8, ResNet18, FastAPI, Docker and Streamlit to deliver a scalable AI solution capable of processing live video streams and generating actionable safety alerts.
+</p>
+</p>
+          <div class="project-stack">
+  <span class="stack-badge">YOLOv8</span>
+  <span class="stack-badge">OpenCV</span>
+  <span class="stack-badge">PyTorch</span>
+  <span class="stack-badge">FastAPI</span>
+  <br>
+  <span class="stack-badge">Streamlit</span>
+  <span class="stack-badge">ResNet18</span>
+   <span class="stack-badge">Docker</span>
+</div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reveal delay-1">
+        <img src="Neuro.png" alt="NeuroGraph AI" class="project-img">
+        <div class="project-body">
+          <div class="project-icon-row">
+            
+            <div class="project-links">
+              <a href="https://github.com/vaibhav668/Hybrid-Spatiotemporal-Graph-Neural-Network-Framework-for-EEG-Based-Epileptic-Seizure-Detection.git" target="_blank" class="proj-link proj-link-gh">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/posts/vaibhav-pokhriyal-a8b08023a_iitdelhi-researchinternship-graphneuralnetworks-activity-7462394235045036032-ubOF?utm_source=share&utm_medium=member_desktop&rcm=ACoAADt0bgsBZkoQJ30SGdVpY1FP7-4WX6UluH0" target="_blank" class="proj-link proj-link-demo">▶ Demo</a>
+            </div>
+          </div>
+          <div class="project-title">NeuroGraph AI</div>
+          <p class="project-desc"><p class="project-desc">
+Developed a novel Hybrid Graph Attention Network (GAT) + BiLSTM framework for automated epileptic seizure detection using EEG signals from the CHB-MIT dataset. Designed an end-to-end biomedical AI pipeline incorporating EEG preprocessing, graph-based representation learning, temporal sequence modeling, and patient-wise evaluation, achieving a test ROC-AUC of 0.914 and 84% classification accuracy.
+</p></p>
+          <div class="project-stack">
+  <span class="stack-badge">PyTorch Geometric</span>
+  <span class="stack-badge">PyG</span>
+  <span class="stack-badge">GAT</span>
+  <span class="stack-badge">BiLSTM</span>
+  <span class="stack-badge">MNE</span>
+  <span class="stack-badge">EEG</span>
+  <span class="stack-badge">PyTorch</span>
+  <span class="stack-badge">Graph Neural Networks</span>
+</div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card reveal delay-2">
+        <img src="Copilot.png" alt="Copilot AI" class="project-img">
+        <div class="project-body">
+          <div class="project-icon-row">
+            
+            <div class="project-links">
+              <a href="https://github.com/vaibhav668/YT_AI_ASSISTANT_EXTENSION.git" target="_blank" class="proj-link proj-link-gh">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/posts/vaibhav-pokhriyal-a8b08023a_generativeai-rag-langchain-activity-7463825368970473472-Eduf?utm_source=share&utm_medium=member_desktop&rcm=ACoAADt0bgsBZkoQJ30SGdVpY1FP7-4WX6UluH0" target="_blank" class="proj-link proj-link-demo">▶ Demo</a>
+            </div>
+          </div>
+          <div class="project-title">YouTube AI Copilot</div>
+          <p class="project-desc">
+Developed an AI-powered Chrome extension that enables users to interact with YouTube videos through natural language conversations. Built a Retrieval-Augmented Generation (RAG) pipeline that automatically extracts video transcripts, performs semantic search using FAISS vector databases, and generates contextual responses using Large Language Models. Integrated FastAPI, LangChain, Hugging Face models, and Chrome Extension APIs to deliver real-time video intelligence and summarization.
+</p>
+          <div class="project-stack">
+  <span class="stack-badge">LangChain</span>
+  <span class="stack-badge">FAISS</span>
+  <span class="stack-badge">FastAPI</span>
+  <span class="stack-badge">HuggingFace</span>
+  <span class="stack-badge">RAG</span>
+  <span class="stack-badge">Qwen Model</span>
+  <span class="stack-badge">YoutubeTranscriptApi</span>
+</div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card reveal delay-3">
+        <img src="subway.png" alt="VisionControl AI" class="project-img">
+        <div class="project-body">
+          <div class="project-icon-row">
+        
+            <div class="project-links">
+              <a href="https://github.com/vaibhav668/Subway-Surfer-Handless-Version.git" target="_blank" class="proj-link proj-link-gh">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/posts/vaibhav-pokhriyal-a8b08023a_ai-computervision-accessibility-activity-7427394046068789248-VPNs?utm_source=share&utm_medium=member_desktop&rcm=ACoAADt0bgsBZkoQJ30SGdVpY1FP7-4WX6UluH0" target="_blank" class="proj-link proj-link-demo">▶ Demo</a>
+            </div>
+          </div>
+          <div class="project-title">VisionControl AI</div>
+          <p class="project-desc">
+Built an AI-powered gesture control system that transforms real-time body movements into game commands for Subway Surfers. Using pose estimation, motion tracking, and computer vision techniques, the application recognizes dynamic gestures and maps them to gameplay actions, demonstrating human-computer interaction through vision-based control systems.
+</p>
+          <div class="project-stack">
+  <span class="stack-badge">OpenCV</span>
+  <span class="stack-badge">MediaPipe</span>
+  <span class="stack-badge">Python</span>
+  <span class="stack-badge">Computer Vision</span>
+  <span class="stack-badge">Pose Estimation</span>
+  <span class="stack-badge">Human AI Interaction</span>
+  <span class="stack-badge">PyAutoGUI</span>
+  <span class="stack-badge">Subway Surfers</span>
+</div>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card reveal">
+        <img src="Bert.png" alt="BERT Resume Classifier" class="project-img">
+        <div class="project-body">
+          <div class="project-icon-row">
+          
+            <div class="project-links">
+              <a href="https://github.com/vaibhav668/bert-resume-role-classifier.git" target="_blank" class="proj-link proj-link-gh">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/posts/vaibhav-pokhriyal-a8b08023a_machinelearning-nlp-bert-activity-7421876950488637440-cMVu?utm_source=share&utm_medium=member_desktop&rcm=ACoAADt0bgsBZkoQJ30SGdVpY1FP7-4WX6UluH0" target="_blank" class="proj-link proj-link-demo">▶ Demo</a>
+            </div>
+          </div>
+          <div class="project-title">BERT-Powered Resume Intelligence & Career Role Classification</div>
+          <p class="project-desc">
+Developed an AI-driven recruitment intelligence system that automatically classifies resumes into relevant job roles using fine-tuned BERT transformers. Built an end-to-end NLP pipeline for resume parsing, semantic understanding, and multi-class role prediction across 25+ career categories, enabling scalable and accurate candidate screening.
+</p>
+          <div class="project-stack">
+  <span class="stack-badge">BERT</span>
+  <span class="stack-badge">PyTorch</span>
+  <span class="stack-badge">Transformers</span>
+  <span class="stack-badge">NLP</span>
+  <span class="stack-badge">Scikit-Learn</span>
+  <span class="stack-badge">Hugging Face</span>
+  <span class="stack-badge">PyPDFLoader</span>
+</div>
+        </div>
+      </div>
+
+      <!-- Project 6  -->
+      <div class="project-card reveal delay-1">
+        <img src="air_sketch.png" alt="AirSketch AI" class="project-img">
+        <div class="project-body">
+          <div class="project-icon-row">
+          
+            <div class="project-links">
+              <a href="https://github.com/vaibhav668/SketchWithOpencvCv.git" target="_blank" class="proj-link proj-link-gh">⌥ GitHub</a>
+              <a href="https://www.linkedin.com/posts/vaibhav-pokhriyal-a8b08023a_computervision-gesturerecognition-humancomputerinteraction-activity-7425880616254185473-W2U0?utm_source=share&utm_medium=member_desktop&rcm=ACoAADt0bgsBZkoQJ30SGdVpY1FP7-4WX6UluH0" target="_blank" class="proj-link proj-link-demo">▶ Demo</a>
+            </div>
+          </div>
+          <div class="project-title">AirSketch AI</div>
+          <p class="project-desc">
+Built an AI-powered virtual drawing interface that leverages real-time hand tracking and gesture recognition to create a touchless sketching experience. Using OpenCV and MediaPipe, the system detects finger positions, recognizes pinch gestures for drawing actions, and provides an interactive canvas controlled entirely through natural hand movements.
+</p>
+          <div class="project-stack">
+  <span class="stack-badge">OpenCV</span>
+  <span class="stack-badge">MediaPipe</span>
+  <span class="stack-badge">Python</span>
+  <span class="stack-badge">Computer Vision</span>
+  <span class="stack-badge">Gesture Recognition</span>
+</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="container">
+
+    <div class="skills-wrap reveal">
+
+      <div class="skill-category">
+        <div class="skill-group-title">Programming & Web</div>
+        <div class="skill-list">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">C++</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">HTML</span>
+          <span class="skill-pill">CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-group-title">AI / Machine Learning</div>
+        <div class="skill-list">
+          <span class="skill-pill">Machine Learning</span>
+          <span class="skill-pill">Deep Learning</span>
+          <span class="skill-pill">NLP</span>
+          <span class="skill-pill">CNNs</span>
+          <span class="skill-pill">Transformers</span>
+          <span class="skill-pill">Transfer Learning</span>
+          <span class="skill-pill">LSTM</span>
+          <span class="skill-pill">BERT</span>
+          <span class="skill-pill">Graph Neural Networks</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-group-title">Generative AI</div>
+        <div class="skill-list">
+          <span class="skill-pill">LangChain</span>
+          <span class="skill-pill">RAG</span>
+          <span class="skill-pill">AI Agents</span>
+          <span class="skill-pill">Vector Databases</span>
+          <span class="skill-pill">Hugging Face</span>
+          <span class="skill-pill">LLMs</span>
+          <span class="skill-pill">Prompt Engineering</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-group-title">Computer Vision</div>
+        <div class="skill-list">
+          <span class="skill-pill">OpenCV</span>
+          <span class="skill-pill">YOLOv8</span>
+          <span class="skill-pill">MediaPipe</span>
+          <span class="skill-pill">Multi-Object Tracking</span>
+          <span class="skill-pill">Pose Estimation</span>
+          <span class="skill-pill">Image Segmentation</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-group-title">Frameworks & Tools</div>
+        <div class="skill-list">
+          <span class="skill-pill">PyTorch</span>
+          <span class="skill-pill">Scikit-Learn</span>
+          <span class="skill-pill">FastAPI</span>
+          <span class="skill-pill">Django</span>
+          <span class="skill-pill">Streamlit</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Git</span>
+          <span class="skill-pill">GitHub</span>
+          <span class="skill-pill">Jupyter Notebook</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-group-title">Data & Core CS</div>
+        <div class="skill-list">
+          <span class="skill-pill">NumPy</span>
+          <span class="skill-pill">Pandas</span>
+          <span class="skill-pill">Matplotlib</span>
+          <span class="skill-pill">Seaborn</span>
+          <span class="skill-pill">OOPs</span>
+          <span class="skill-pill">DSA</span>
+          <span class="skill-pill">ML Mathematics</span>
+          <span class="skill-pill">100+ DSA Problems</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="reveal">
+     
+      <h2 class="section-title">ACHIEVEMENTS<span class="grad-text"> | IMPACT</span></h2>
+    </div>
+
+    <div class="achievements-grid">
+
+      <!-- IIT Roorkee -->
+      <div class="achievement-card reveal">
+        <div class="achievement-imgs">
+          <img src="nano.png" alt="AirSketch AI" class="project-img">
+          <img src="nano_cer.png" alt="AirSketch AI" class="project-img">
+        </div>
+        <div class="achievement-body">
+          <div class="achievement-title">NANO_NAVIGATOR</div>
+          <p class="achievement-sub">Secured 3rd position at Cognizance 2026, IIT Roorkee as part of Team Prasthanam in the Nano Navigator competition. Designed and developed an autonomous Micromouse robot capable of navigating and solving complex wall mazes using the Flood Fill path-planning algorithm and Left-Hand Rule navigation strategy. Built the complete hardware system using ESP32, Time-of-Flight sensors, TB6612FNG motor driver, N20 motors, and a 2S LiPo-powered buck-boost architecture. Overcame significant challenges in sensor calibration, motion control.</p>
+          <div class="achievement-org">IIT Roorkee · COGNIZANCE'26</div>
+        </div>
+      </div>
+
+      <!-- IIT Delhi tryst -->
+      <div class="achievement-card reveal delay-1">
+        <div class="achievement-imgs">
+
+  <div class="achievement-img">
+    <img src="del1.png" alt="Blind Bot Battle Robot">
+  </div>
+
+  <div class="achievement-img">
+    <img src="del2.png" alt="Blind Bot Battle Team">
+  </div>
+
+</div>
+        <div class="achievement-body">
+          
+          <div class="achievement-title">BLIND_BOT BATTLE</div>
+          <p class="achievement-sub">Secured 2nd position in the BlindBot Battle Robo Soccer competition at Tryst 2025, IIT Delhi, as part of a student robotics team. Designed, built, and tested autonomous soccer robots, gaining hands-on experience in embedded systems, wireless control, sensor integration, and robotic navigation. As a first-year engineering student, the competition provided valuable exposure to real-world robotics development, teamwork, rapid problem-solving, and competitive engineering challenges, making it a highly rewarding learning experience.
+</p>
+          <div class="achievement-org">IIT Delhi · Tryst'25</div>
+        </div>
+      </div>
+
+      <!-- Robotics Club Lead with workshop photos -->
+      <div class="achievement-card reveal delay-2">
+        <div style="padding:20px 20px 0">
+          <div style="font-size:.72rem;color:var(--fg3);font-family:'Space Mono',monospace;letter-spacing:.06em;margin-bottom:8px"></div>
+          <div class="workshop-grid">
+              <div class="achievement-img">
+        <img src="work4.png" alt="workshop">
+    </div>
+
+    <div class="achievement-img">
+        <img src="work2.jpg" alt="workshop">
+    </div>
+
+    <div class="achievement-img">
+        <img src="work1.jpg" alt="Team Prasthanam">
+    </div>
+          </div>
+          
+        </div>
+        <div class="achievement-body">
+  
+          <div class="achievement-title">Robotics Club Lead</div>
+          <p class="achievement-sub">Core member and technical mentor at Team Prasthanam, the Robotics Club of GBPIET. Conducted workshops on Microcontrollers, Computer Vision, OpenCV, IoT, and Embedded Systems while mentoring junior students in robotics and AI projects. Contributed to autonomous robots, drone applications, and computer vision systems, and guided teams for national-level competitions including Cognizance, IIT Roorkee.
+
+</p>
+          <div class="achievement-org">Team Prasthanam · Robotics Club Gbpiet</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GITHUB -->
+<div style="background:var(--glass);
+border:1px solid var(--glass-border);
+border-radius:20px;
+padding:40px;
+text-align:center;
+margin-top:48px"
+class="reveal">
+
+  <h3 style="font-family:'Syne',sans-serif;
+  font-size:1.8rem;
+  margin-bottom:10px;">
+    GitHub Activity
+  </h3>
+
+  <p style="color:var(--fg2);
+  margin-bottom:30px;">
+    Consistent contributions, open-source projects, AI research, and community-driven development.
+  </p>
+
+  <img
+    src="https://raw.githubusercontent.com/vaibhav668/vaibhav668/output/github-snake-dark.svg"
+    alt="Contribution Snake"
+    style="
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    display:block;
+    border-radius:16px;">
+
+  <div style="margin-top:30px">
+    <a href="https://github.com/vaibhav668"
+       target="_blank"
+       class="btn btn-primary">
+       View GitHub Profile ↗
+    </a>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+     
+      <h2 class="section-title">Let's <span class="grad-text">Connect</span></h2>
+      <p class="section-sub">Open to research collaborations, full-time roles, and freelance AI/ML projects.</p>
+    </div>
+
+    <div class="contact-cards reveal">
+      <a href="mailto:vpokhriyal35@gmail.com" class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div><div class="contact-card-label">Email</div><div class="contact-card-val">vpokhriyal35@gmail.com</div></div>
+      </a>
+      <a href="https://www.linkedin.com/in/vaibhav-pokhriyal-a8b08023a/" target="_blank" class="contact-card">
+        <div class="contact-card-icon">💼</div>
+        <div><div class="contact-card-label">LinkedIn</div><div class="contact-card-val">linkedin.com/in/vaibhavpokhriyal</div></div>
+      </a>
+      <a href="https://github.com/vaibhav668" target="_blank" class="contact-card">
+        <div class="contact-card-icon">🐙</div>
+        <div><div class="contact-card-label">GitHub</div><div class="contact-card-val">github.com/vaibhav668</div></div>
+      </a>
+      <a href="tel:+918266894170" class="contact-card">
+        <div class="contact-card-icon">📱</div>
+        <div><div class="contact-card-label">Phone</div><div class="contact-card-val">+91 82668 94170</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Vaibhav Pokhriyal</div>
+    <p style="color:var(--fg3);font-size:.85rem;margin-bottom:8px">AI/ML Engineer · GenAI Developer · Computer Vision Engineer</p>
+    <ul class="footer-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Vaibhav Pokhriyal · Built with passion &amp; precision</p>
+  </div>
+</footer>
+</div>
+
+<script>
+// ── PARTICLE BG ──
+const canvas=document.getElementById('canvas');const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+for(let i=0;i<90;i++)particles.push({x:Math.random()*2000,y:Math.random()*2000,r:Math.random()*1.5+.3,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,alpha:Math.random()*.5+.1});
+function drawP(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(124,58,237,${p.alpha})`;ctx.fill();});for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(124,58,237,${.12*(1-d/120)})`;ctx.lineWidth=.5;ctx.stroke();}}requestAnimationFrame(drawP);}drawP();
+
+// ── NEURAL ──
+const nc=document.getElementById('neural-canvas');const nctx=nc.getContext('2d');
+const layers=[3,5,4,3,2];const nw=nc.width,nh=nc.height;const nodes=[];let pulses=[],pulseTick=0;
+layers.forEach((count,li)=>{const x=50+li*(nw-100)/(layers.length-1);for(let n=0;n<count;n++){const y=(nh-30)/(count+1)*(n+1)+15;nodes.push({x,y,layer:li});}});
+function gln(l){return nodes.filter(n=>n.layer===l);}
+function drawN(){nctx.clearRect(0,0,nw,nh);for(let l=0;l<layers.length-1;l++){const fr=gln(l),to=gln(l+1);fr.forEach(a=>to.forEach(b=>{nctx.beginPath();nctx.moveTo(a.x,a.y);nctx.lineTo(b.x,b.y);nctx.strokeStyle='rgba(124,58,237,0.12)';nctx.lineWidth=.8;nctx.stroke();}));}
+pulses=pulses.filter(p=>p.progress<1);pulses.forEach(p=>{p.progress+=.02;const x=p.from.x+(p.to.x-p.from.x)*p.progress,y=p.from.y+(p.to.y-p.from.y)*p.progress,a=Math.sin(p.progress*Math.PI);nctx.beginPath();nctx.arc(x,y,3,0,Math.PI*2);nctx.fillStyle=`rgba(6,182,212,${a*.9})`;nctx.fill();});
+pulseTick++;if(pulseTick%15===0){const li=Math.floor(Math.random()*(layers.length-1));const fr=gln(li),to=gln(li+1);if(fr.length&&to.length)pulses.push({from:fr[Math.floor(Math.random()*fr.length)],to:to[Math.floor(Math.random()*to.length)],progress:0});}
+nodes.forEach(n=>{const g=nctx.createRadialGradient(n.x,n.y,0,n.x,n.y,10);g.addColorStop(0,'rgba(124,58,237,0.9)');g.addColorStop(1,'rgba(59,130,246,0.3)');nctx.beginPath();nctx.arc(n.x,n.y,7,0,Math.PI*2);nctx.fillStyle=g;nctx.fill();nctx.beginPath();nctx.arc(n.x,n.y,3,0,Math.PI*2);nctx.fillStyle='rgba(200,180,255,0.9)';nctx.fill();});requestAnimationFrame(drawN);}drawN();
+
+// ── TYPING ──
+const words=['AI/ML Engineer','GenAI Developer','Computer Vision Engineer','Research Intern @ IIT Delhi'];
+let wi=0,ci=0,del=false;const typed=document.getElementById('typed');
+function type(){const word=words[wi];if(!del){typed.textContent=word.slice(0,++ci);if(ci===word.length){del=true;setTimeout(type,2200);return;}setTimeout(type,65);}else{typed.textContent=word.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;setTimeout(type,400);return;}setTimeout(type,35);}}setTimeout(type,800);
+
+// ── SCROLL REVEAL ──
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(el=>obs.observe(el));
+document.querySelectorAll('#hero .reveal').forEach(el=>el.classList.add('visible'));
+
+// ── IMAGE UPLOADERS ──
+function loadProfilePhoto(input){
+  if(!input.files[0])return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const slot=document.getElementById('profile-slot');
+    slot.innerHTML='';
+    const img=document.createElement('img');
+    img.src=e.target.result;
+    img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:50%';
+    slot.appendChild(img);
+    slot.style.background='none';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+function loadResearchPhoto(input){
+  if(!input.files[0])return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const slot=input.closest('.research-photo');
+    slot.innerHTML='';
+    const img=document.createElement('img');
+    img.src=e.target.result;
+    img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:10px';
+    slot.appendChild(img);
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+function uploadProjectImg(el,inputId){document.getElementById(inputId).click();}
+function loadProjectImg(input){
+  if(!input.files[0])return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const slot=input.closest('.project-img-placeholder');
+    slot.innerHTML='';
+    slot.style.background='none';
+    const img=document.createElement('img');
+    img.src=e.target.result;
+    img.style.cssText='width:100%;height:100%;object-fit:cover';
+    slot.appendChild(img);
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+function uploadAchImg(el,inputId){document.getElementById(inputId).click();}
+function loadAchImg(input){
+  if(!input.files[0])return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const slot=input.closest('.achievement-img,.workshop-photo');
+    if(!slot)return;
+    slot.innerHTML='';
+    const img=document.createElement('img');
+    img.src=e.target.result;
+    img.style.cssText='width:100%;height:100%;object-fit:cover';
+    slot.appendChild(img);
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+</script>
+</body>
+</html>
